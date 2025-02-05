@@ -362,6 +362,10 @@
 <body>
     <div class="container">
         <h1>APU GOLF CAFE &BAR<br>予約フォーム
+            <div class="info-text">
+                ⇩当日のご予約はお電話でお願いいたします⇩<br>
+                <button id="sendMessage">電話予約の方はこちらをタップ</button>
+            </div>
         </h1>
         <div class="label">お客様名※必須</div>
         <input type="text" id="name" placeholder="お名前を入力してください">
@@ -459,6 +463,24 @@
                 console.log('LIFF初期化失敗', err);
             });
 
+            // ボタンのクリックイベント設定
+            document.getElementById('sendMessage').addEventListener('click', function () {
+                // メッセージ送信
+                liff.sendMessages([{
+                    type: 'text',
+                    text: '電話予約'
+                }]).then(() => {
+                    console.log('メッセージ送信成功');
+                    // LIFFを閉じる
+                    liff.closeWindow();
+                }).catch((err) => {
+                    console.error('メッセージ送信失敗', err);
+                    // エラー時でもLIFFを閉じる
+                    liff.closeWindow();
+                });
+            });
+
+            // 空き状況の取得（既存コード）
             fetchAvailability(currentDate);
         });
 
