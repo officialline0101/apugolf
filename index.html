@@ -925,6 +925,13 @@
                     // メニュー時間と訪問回数の時間を合計して、終了時間を設定
                     slotEnd.setMinutes(slotStart.getMinutes() + menuDuration + visitDuration + irradiationsDuration);
 
+        // 当日のセルはすべて✕にする
+        if (slotStart.toDateString() === now.toDateString()) {
+            cell.textContent = '✕';
+            cell.classList.add('unavailable');
+            continue;
+        }
+                    
                     // 終了時間が翌日 (0時以降) になる場合は✕に設定
                     if (slotEnd.getDate() !== slotStart.getDate()) {
                         cell.textContent = '✕';
